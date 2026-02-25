@@ -10,15 +10,14 @@ while [ -L "${SCRIPT_SOURCE}" ]; do
     [[ "${SCRIPT_SOURCE}" != /* ]] && SCRIPT_SOURCE="${SCRIPT_DIR}/${SCRIPT_SOURCE}"
 done
 SCRIPT_DIR="$( cd -P "$( dirname "${SCRIPT_SOURCE}" )" && pwd )"
+PROJECT_ROOT="$( cd "${SCRIPT_DIR}/.." && pwd )"
+VENV_DIR="${PROJECT_ROOT}/.venv"
 
 # Activate virtual environment if it exists
-if [ -d "${SCRIPT_DIR}/.venv" ]; then
+if [ -d "${VENV_DIR}" ]; then
     # shellcheck disable=SC1090
-    source "${SCRIPT_DIR}/.venv/bin/activate"
-elif [ -d "${SCRIPT_DIR}/venv" ]; then
-    # shellcheck disable=SC1090
-    source "${SCRIPT_DIR}/venv/bin/activate"
+    source "${VENV_DIR}/bin/activate"
 fi
 
-python3 "${SCRIPT_DIR}/main.py" "$@"
+python3 "${PROJECT_ROOT}/main.py" "$@"
 

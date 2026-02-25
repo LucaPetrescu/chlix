@@ -4,9 +4,9 @@ import sys
 import os
 import argparse
 from pathlib import Path
-from CodebaseIndexer import CodebaseIndexer
-from CodebaseQuery import CodebaseQuery
-from ChromaDBManager import ChromaDBManager
+from chroma.CodebaseIndexer import CodebaseIndexer
+from chroma.CodebaseQuery import CodebaseQuery
+from chroma.ChromaDBManager import ChromaDBManager
 
 
 def extract_repo_name(repo_path: str) -> str:

@@ -4,24 +4,23 @@
 # Run this once from the repo to set up the venv and global `chlix` command.
 
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+PROJECT_ROOT="$( cd "${SCRIPT_DIR}/.." && pwd )"
+VENV_DIR="${PROJECT_ROOT}/.venv"
 
-echo "Setting up chlix in ${SCRIPT_DIR}..."
+echo "Setting up chlix in ${PROJECT_ROOT}..."
 
 # Create or reuse virtual environment
-if [ -d "${SCRIPT_DIR}/.venv" ]; then
+if [ -d "${VENV_DIR}" ]; then
     # shellcheck disable=SC1090
-    source "${SCRIPT_DIR}/.venv/bin/activate"
-elif [ -d "${SCRIPT_DIR}/venv" ]; then
-    # shellcheck disable=SC1090
-    source "${SCRIPT_DIR}/venv/bin/activate"
+    source "${VENV_DIR}/bin/activate"
 else
-    python3 -m venv "${SCRIPT_DIR}/.venv" --prompt=chlix
+    python3 -m venv "${VENV_DIR}" --prompt=chlix
     # shellcheck disable=SC1090
-    source "${SCRIPT_DIR}/.venv/bin/activate"
+    source "${VENV_DIR}/bin/activate"
 fi
 
 echo "Installing Python dependencies..."
-pip install -r "${SCRIPT_DIR}/requirements.txt"
+python3 -m pip install -r "${PROJECT_ROOT}/requirements.txt"
 
 # Ensure ~/.local/bin exists and create/refresh a symlink for global usage
 LOCAL_BIN="${HOME}/.local/bin"
